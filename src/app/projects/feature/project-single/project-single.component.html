@@ -1,0 +1,88 @@
+<div class="flex justify-center items-center min-h-screen ">
+    <div class="w-full max-w-lg p-6 bg-white shadow-md rounded-md shadow-gray-600">
+      <form [formGroup]="projectFormGroup">
+        <div class="space-y-6">
+          <div>
+            <div class="bg-white">
+              <div class="sm:flex items-center justify-between">
+                <div class="flex items-center">
+                  <h2 class="text-base font-semibold leading-7 text-gray-900">{{isInEditMode ? 'Edit Project' : 'New Project'}}</h2>
+                </div>
+                <div *ngIf="isInEditMode">
+                  <button (click)="onDetailsClicked()"
+                    class="focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600 mt-4 sm:mt-0 inline-flex items-start justify-start px-6 py-3 bg-indigo-700 hover:bg-indigo-600 focus:outline-none rounded">
+                    <p class="text-sm font-medium leading-none text-white">View Project Details</p>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="border-b border-gray-200 pb-6">
+              <div class="mt-6 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2">
+                <!-- Project Name -->
+                <div class="sm:col-span-2">
+                  <label for="name" class="block text-sm font-medium leading-6 text-gray-900">Project name</label>
+                  <div class="mt-2">
+                    <input type="text" name="name" id="name" autocomplete="given-name" formControlName="name"
+                      [disabled]="isReadOnly"
+                      class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                  </div>
+                </div>
+                <!-- Project Manager -->
+                <div class="sm:col-span-2">
+                  <label for="projectManager" class="block text-sm font-medium leading-6 text-gray-900">Project Manager</label>
+                  <div class="mt-2">
+                    <select id="projectManager" name="projectManager" autocomplete="projectManager" formControlName="projectManager"
+                      class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
+                      <option>User 1</option>
+                      <option>User 2</option>
+                    </select>
+                  </div>
+                </div>
+                <!-- Client Email -->
+                <div class="sm:col-span-2">
+                  <label for="clientEmail" class="block text-sm font-medium leading-6 text-gray-900">Client Email</label>
+                  <div class="mt-2">
+                    <input id="clientEmail" name="clientEmail" type="email" autocomplete="clientEmail" [disabled]="isReadOnly" formControlName="clientEmail"
+                      (ngModelChange)="onChange($event)" (blur)="onTouched()"
+                      class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                  </div>
+                </div>
+                <!-- Slack Link -->
+                <div class="sm:col-span-2">
+                  <label for="slackLink" class="block text-sm font-medium leading-6 text-gray-900">Slack Link</label>
+                  <div class="mt-2">
+                    <input id="slackLink" name="slackLink" type="url" autocomplete="slackLink" [disabled]="isReadOnly" formControlName="slackLink"
+                      class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                  </div>
+                </div>
+                <!-- Start Date -->
+                <div class="sm:col-span-2">
+                  <label for="startDate" class="block text-sm font-medium leading-6 text-gray-900">Start Date</label>
+                  <div class="mt-2">
+                    <input type="date" name="startDate" id="startDate" autocomplete="startDate" formControlName="startDate"
+                      class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                  </div>
+                </div>
+                <!-- Expected End Date -->
+                <div class="sm:col-span-2">
+                  <label for="estimatedEndDate" class="block text-sm font-medium leading-6 text-gray-900">Expected End Date</label>
+                  <div class="mt-2">
+                    <input type="date" name="estimatedEndDate" id="estimatedEndDate" autocomplete="estimatedEndDate" formControlName="estimatedEndDate"
+                      class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <div class="mt-6 flex items-center justify-end gap-x-6">
+          <button type="submit" (click)="submit()" [disabled]="!this.projectFormGroup.valid"
+            class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+            {{isInEditMode ? 'Update' : 'Create'}}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  

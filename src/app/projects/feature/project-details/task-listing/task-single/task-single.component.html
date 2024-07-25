@@ -1,0 +1,25 @@
+<div class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full" id="taskModal">
+    <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+      <div class="mt-3 text-center">
+        <h3 class="text-lg leading-6 font-medium text-gray-900">
+          {{ task ? 'Edit Task' : 'Add New Task' }}
+        </h3>
+        <div class="mt-2">
+          <form (submit)="onSubmit()">
+            <!-- Task form fields here -->
+            <div>
+              <label for="taskName" class="block text-sm font-medium text-gray-700">Task Name</label>
+              <!-- <input type="text" id="taskName" name="taskName" form="task.name" class="mt-1 block w-full"> -->
+            </div>
+            <!-- Add more fields as needed -->
+  
+            <div class="mt-5 sm:mt-6">
+              <button type="button" (click)="onCancel()" class="inline-flex justify-center rounded-md border border-transparent bg-gray-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-gray-700">Cancel</button>
+              <button type="submit" class="ml-3 inline-flex justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700">Save</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
