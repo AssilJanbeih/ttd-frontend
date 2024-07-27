@@ -11,7 +11,7 @@ import { GetTasksResponse } from '../../models/task/get-task-response';
 })
 export class TasksService {
 
-  private _baseUrl = `${environment.backendBaseUrl}/projectTask`;
+  private _baseUrl = `${environment.backendBaseUrl}/tasks`;
   constructor(private httpClient: HttpClient) {
   }
 

@@ -4,5 +4,5 @@ export interface GetUsersResponse{
   email: string;
   active: boolean;
   title: string;
-  jobTypeId: string;
+  role: string;
 }

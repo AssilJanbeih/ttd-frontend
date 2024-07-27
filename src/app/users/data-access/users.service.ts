@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { catchError, Observable, of } from 'rxjs';
 import { environment } from '../../../environments/environment.prod';
 import { AddUserRequest } from '../models/add-user/add-user-request';
 import { AddUserResponse } from '../models/add-user/add-user-response';
@@ -22,7 +22,19 @@ export class UsersService {
   getUser(id: string): Observable<GetUserResponse>{
     return this.httpClient.get<GetUserResponse>(`${this._baseUrl}/${id}`);
   }
-
+  getProjectManagers(): Observable<any[]> {
+    return this.httpClient.get<any[]>(`${this._baseUrl}/project-managers`)
+      .pipe(
+        catchError(this.handleError<any[]>('getProjectManagers', []))
+      );
+  }
+  
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+      console.error(error); // log to console
+      return of(result as T);
+    };
+  }
   addUser(request: AddUserRequest): Observable<AddUserResponse>{
     return this.httpClient.post<AddUserResponse>(`${this._baseUrl}`, request);
   }

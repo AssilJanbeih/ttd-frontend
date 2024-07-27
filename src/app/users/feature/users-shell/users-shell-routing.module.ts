@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from "@angular/router";
 import { UserListingComponent } from '../user-listing/user-listing.component';
+import { UserSingleComponent } from '../user-single/user-single.component';
 
 const routes: Routes = [
   {
@@ -9,13 +10,13 @@ const routes: Routes = [
      data: {
     }, 
   },
-  // {
-  //   path: 'new', 
-  //   component: , 
-  //   data: {
-  //     breadcrumb: 'User'
-  //   }, 
-  // },
+  {
+    path: 'new', 
+    component: UserSingleComponent, 
+    data: {
+      breadcrumb: 'User'
+    }, 
+  },
   // {
   //   path: ':userId', 
   //   component: ,

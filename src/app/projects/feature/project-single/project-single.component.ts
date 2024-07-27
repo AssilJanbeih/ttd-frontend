@@ -7,12 +7,13 @@ import { ProjectsService } from '../../data-access/projects.service';
 import { GetProjectsResponse } from '../../models/project/get-projects-response';
 import { ControlValueAccessor, FormBuilder, FormGroup, FormsModule, NG_VALUE_ACCESSOR, NgControl, ReactiveFormsModule, Validators } from "@angular/forms";
 import { CommonModule } from '@angular/common';
+import { UsersService } from '../../../users/data-access/users.service';
 
 @Component({
   selector: 'app-project-single',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, FormsModule],
-  providers: [ProjectsService,
+  providers: [ProjectsService, UsersService,
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => ProjectSingleComponent),
@@ -30,7 +31,7 @@ export class ProjectSingleComponent implements OnInit, OnDestroy, ControlValueAc
   isInEditMode!: boolean;
   project!: GetProjectsResponse;
   projectFormGroup!: FormGroup;
-  // projectManagers$!: Observable<Array<GetUsersDropdownResponse>>;
+  projectManagers: any[] = [];
   projectRoute = '/home/' + PROJECTS_ROUTE;
 
   // isPm = this.userSessionService.isPm;
@@ -42,7 +43,7 @@ export class ProjectSingleComponent implements OnInit, OnDestroy, ControlValueAc
 
   constructor(private activatedRoute: ActivatedRoute,
     private projectDataService: ProjectsService,
-    // private userSessionService: UserSessionService,private sharedService: SharedService,
+    private userService: UsersService,
     private formBuilder: FormBuilder,
     private router: Router) {
     this.initFormGroup();
@@ -64,7 +65,7 @@ export class ProjectSingleComponent implements OnInit, OnDestroy, ControlValueAc
 
   ngOnInit(): void {
     this.checkForRouteParams();
-    this.initDropdowns();
+    this.loadProjectManagers();
   }
 
   private checkForRouteParams(): void {
@@ -78,19 +79,6 @@ export class ProjectSingleComponent implements OnInit, OnDestroy, ControlValueAc
     }
   }
 
-  disabledStartDate = (startValue: Date): boolean => {
-    if (!startValue || !this.projectFormGroup.get('expectedCompletionDate')?.value) {
-      return false;
-    }
-    return startValue > this.projectFormGroup.get('expectedCompletionDate')?.value;
-  };
-
-  disabledEndDate = (endValue: Date): boolean => {
-    if (!endValue || !this.projectFormGroup.get('expectedStartDate')?.value) {
-      return false;
-    }
-    return endValue <= this.projectFormGroup.get('expectedStartDate')?.value;
-  }
 
   initFormGroup(): void {
     this.projectFormGroup = this.formBuilder.group({
@@ -107,10 +95,14 @@ export class ProjectSingleComponent implements OnInit, OnDestroy, ControlValueAc
     });
   }
 
-  private initDropdowns(): void {
-    // this.projectManagers$ = this.sharedService.getPmsDropdown();
+    private loadProjectManagers(): void {
+      this._subscriptions.add(
+        this.userService.getProjectManagers().subscribe(
+          managers => this.projectManagers = managers
+        )
+      );
+    }
 
-  }
 
   private getProject(id: string) {
     this._subscriptions.add(

@@ -3,7 +3,7 @@ import { ProjectListingRoutingModule } from "./project-listing-routing.module";
 import { CommonModule, DatePipe } from "@angular/common";
 import { PROJECTS_ROUTE } from "../../../core/constants/routes";
 import { ActivatedRoute, Router } from "@angular/router";
-import { Subscription, Observable } from "rxjs";
+import { Subscription, Observable, catchError, of } from "rxjs";
 import { GetProjectsResponse } from "../../models/project/get-projects-response";
 import { ProjectsService } from "../../data-access/projects.service";
 
@@ -35,9 +35,13 @@ export class ProjectListingComponent implements OnInit {
   }
 
   private getProjectsListing() {
-    this.listOfData$ = this.projectDataService.getProjects();
+    this.listOfData$ = this.projectDataService.getProjects().pipe(
+      catchError(error => {
+        console.error('Error fetching projects:', error);
+        return of([]); 
+      })
+    );
   }
-
   onUpdateClicked(id: string) {
     this.router.navigateByUrl(`home/${PROJECTS_ROUTE}/${id}`);
   }

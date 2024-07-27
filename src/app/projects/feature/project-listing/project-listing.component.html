@@ -28,11 +28,11 @@
                         <th>Completion</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody *ngFor="let project of listOfData$ | async">
                     <tr tabindex="0" class="focus:outline-none h-16 border border-gray-100 rounded">
                         <td class="">
                             <div class="flex items-center pl-5">
-                                <p class="text-base font-medium leading-none text-gray-700 mr-2">[Project 1]</p> <a
+                                <p class="text-base font-medium leading-none text-gray-700 mr-2">{{project.name}}</p> <a
                                     href=''><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                         viewBox="0 0 20 20" fill="none">
                                         <path
@@ -46,11 +46,11 @@
                             <p class="text-sm leading-none text-gray-600">PM</p>
                         </td>
                         <td>
-                            {{'client@email.com'}}
+                            {{project.clientEmail}}
                         </td>
-                        <td>{{'07/10/2024' | date}}</td>
-                        <td>{{'12/01/2025' | date}}</td>
-                        <td>{{'completion'}}</td>
+                        <td>{{project.startDate}}</td>
+                        <td>{{project.estimatedEndDate}}</td>
+                        <td>{{project.completion}}</td>
                         <td class="pl-4">
                             <button (click)="onDetailsClicked('1')"
                                 class="focus:ring-2 focus:ring-offset-2 focus:ring-red-300 text-sm leading-none text-gray-600 py-3 px-5 bg-gray-100 rounded hover:bg-gray-200 focus:outline-none">View</button>

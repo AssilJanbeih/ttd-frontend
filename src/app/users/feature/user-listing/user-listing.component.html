@@ -27,21 +27,21 @@
                         <th>Active</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody *ngFor="let user of listOfData$ | async">
                     <tr tabindex="0" class="focus:outline-none h-16 border border-gray-100 rounded">
                         <td class="">
                             <div class="flex items-center pl-5">
-                                <p class="text-base font-medium leading-none text-gray-700 mr-2">User 1</p> 
+                                <p class="text-base font-medium leading-none text-gray-700 mr-2">{{user.name}}</p> 
                             </div>
                         </td>
                         <td>
-                            <p class="text-sm leading-none text-gray-600">  {{'client@email.com'}}</p>
+                            <p class="text-sm leading-none text-gray-600">  {{user.email}}</p>
                         </td>
                         <td>
-                            {{'Pm'}}
+                            {{user.role}}
                         </td>
-                        <td>{{'title'}}</td>
-                        <td>{{'true'}}</td>
+                        <td>{{user.title}}</td>
+                        <td>{{user.active}}</td>
                         <td class="pl-4">
                             <button (click)="onDetailsClicked('1')"
                                 class="focus:ring-2 focus:ring-offset-2 focus:ring-red-300 text-sm leading-none text-gray-600 py-3 px-5 bg-gray-100 rounded hover:bg-gray-200 focus:outline-none">View</button>
